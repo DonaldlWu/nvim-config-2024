@@ -24,5 +24,7 @@
   "telescope.nvim": { "branch": "master", "commit": "d90956833d7c27e73c621a61f20b29fdb7122709" },
   "toggleterm.nvim": { "branch": "main", "commit": "cbd041d91b90cd3c02df03fe6133208888f8e008" },
   "undotree": { "branch": "master", "commit": "7df3be7a261ea31b528aa442b494fcb458f3d968" },
-  "vim-fugitive": { "branch": "master", "commit": "fab00f7c0f3a08e860e39c7adeb8fbe849921a98" }
+  "vim-colors-xcode": { "branch": "master", "commit": "3d1f81ce9550d609ce962f66407759eb581bd725" },
+  "vim-fugitive": { "branch": "master", "commit": "fab00f7c0f3a08e860e39c7adeb8fbe849921a98" },
+  "vscode.nvim": { "branch": "main", "commit": "380c1068612b1bfbe35d70a4f2e58be5030a0707" }
 }
