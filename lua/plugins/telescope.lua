@@ -11,12 +11,15 @@ return {
           live_grep = {
             theme = "ivy",
           },
+          lsp_references = {
+            theme = "ivy",
+          },
         },
       }
       local builtin = require("telescope.builtin")
       vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-      vim.keymap.set('n', '<C-p>', builtin.find_files, {})
       vim.keymap.set('n', '<leader>lg', builtin.live_grep, {})
+      vim.keymap.set('n', '<leader>rf', builtin.lsp_references, {})
     end
   },
   {
