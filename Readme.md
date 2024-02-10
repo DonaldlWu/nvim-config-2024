@@ -138,4 +138,14 @@ And now we can move all plugin into separate file
 
 7. lua line
 
+# LSP config
+
+1. install mason
+2. install mason-lspconfig
+3. nvim-lspconfig
+
+## code action
+
+Install telescope-ui-sleect.nvim
+
 
