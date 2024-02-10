@@ -136,6 +136,6 @@ return {
 
 And now we can move all plugin into separate file
 
-
+7. lua line
 
 
