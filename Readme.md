@@ -152,3 +152,9 @@ Install telescope-ui-sleect.nvim
 
 Install none-ls 
 
+## Auto completion
+
+1. cmp_luasnip
+2. nvim-cmp
+3. friendly-snippets
+4. cmp-nvim-lsp
