@@ -148,4 +148,7 @@ And now we can move all plugin into separate file
 
 Install telescope-ui-sleect.nvim
 
+## Linter
+
+Install none-ls 
 
