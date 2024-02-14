@@ -11,6 +11,9 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = { "lua_ls", "tsserver" },
 			})
+      require'lspconfig'.sourcekit.setup{
+        cmd = {"/Applications/Xcode-15.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"},
+      }
 		end,
 	},
 	{
