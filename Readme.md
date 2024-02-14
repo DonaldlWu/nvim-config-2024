@@ -158,3 +158,32 @@ Install none-ls
 2. nvim-cmp
 3. friendly-snippets
 4. cmp-nvim-lsp
+
+## DAP
+
+1. nvim-dap
+2. nvim-dap-ui
+
+## Surround
+
+// ys<motion><delimiter>
+
+ex.. 
+
+```
+S{ -> surround by {
+ysw" -> select word and surround by "
+ysa"( -> surround " by (
+
+// delete
+ds{
+
+// change
+cs({
+
+// HTML
+cst
+dst
+```
+
+
