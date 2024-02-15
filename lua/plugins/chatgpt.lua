@@ -1,5 +1,5 @@
 local parameter = os.getenv("OPENAI_API_KEY")
-if parameter ~= nil then
+if parameter then
   return {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
@@ -14,4 +14,6 @@ if parameter ~= nil then
       })
     end,
   }
+else
+  return {}
 end
