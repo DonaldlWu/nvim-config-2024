@@ -11,9 +11,11 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = { "lua_ls", "tsserver" },
 			})
-      require'lspconfig'.sourcekit.setup{
-        cmd = {"/Applications/Xcode-15.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"},
-      }
+			require("lspconfig").sourcekit.setup({
+				cmd = {
+					"/Applications/Xcode-15.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+				},
+			})
 		end,
 	},
 	{
@@ -37,6 +39,13 @@ return {
 			vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, {})
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_next, {})
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, {})
+
+      -- Set up diagnostics
+			local signs = { Error = '', Warn = '', Hint = '', Info = '' }
+			for type, icon in pairs(signs) do
+				local hl = "DiagnosticSign" .. type
+				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+			end
 		end,
 	},
 }
