@@ -1,67 +1,69 @@
 return {
   {
     "tpope/vim-fugitive",
+  },
+  {
+    "lewis6991/gitsigns.nvim",
     config = function()
+      -- 設置 highlights
+      local function setup_highlights()
+        vim.api.nvim_set_hl(0, "GitSignsAdd", { link = "DiffAdd" })
+        vim.api.nvim_set_hl(0, "GitSignsChange", { link = "DiffChange" })
+        vim.api.nvim_set_hl(0, "GitSignsDelete", { link = "DiffDelete" })
+
+        vim.api.nvim_set_hl(0, "GitSignsAddNr", { link = "GitSignsAdd" })
+        vim.api.nvim_set_hl(0, "GitSignsChangeNr", { link = "GitSignsChange" })
+        vim.api.nvim_set_hl(0, "GitSignsDeleteNr", { link = "GitSignsDelete" })
+
+        vim.api.nvim_set_hl(0, "GitSignsAddLn", { link = "GitSignsAdd" })
+        vim.api.nvim_set_hl(0, "GitSignsChangeLn", { link = "GitSignsChange" })
+        vim.api.nvim_set_hl(0, "GitSignsDeleteLn", { link = "GitSignsDelete" })
+      end
+
+      -- 初始設置 highlights
+      setup_highlights()
+
+      -- 當顏色主題改變時重新設置 highlights
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = setup_highlights,
+      })
+
       require("gitsigns").setup({
         signs = {
-          add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-          change = {
-            hl = "GitSignsChange",
-            text = "│",
-            numhl = "GitSignsChangeNr",
-            linehl = "GitSignsChangeLn",
-          },
-          delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-          topdelete = {
-            hl = "GitSignsDelete",
-            text = "‾",
-            numhl = "GitSignsDeleteNr",
-            linehl = "GitSignsDeleteLn",
-          },
-          changedelete = {
-            hl = "GitSignsChange",
-            text = "~",
-            numhl = "GitSignsChangeNr",
-            linehl = "GitSignsChangeLn",
-          },
-          untracked = {
-            hl = "GitSignsAdd",
-            text = "┆",
-            numhl = "GitSignsAddNr",
-            linehl = "GitSignsAddLn",
-          },
+          add = { text = "│" },
+          change = { text = "│" },
+          delete = { text = "_" },
+          topdelete = { text = "‾" },
+          changedelete = { text = "~" },
+          untracked = { text = "┆" },
         },
-        signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-        numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
-        linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
-        word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+        signcolumn = true,
+        numhl = false,
+        linehl = false,
+        word_diff = false,
         watch_gitdir = {
           interval = 1000,
           follow_files = true,
         },
         attach_to_untracked = true,
-        current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+        current_line_blame = false,
         current_line_blame_opts = {
           virt_text = true,
-          virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+          virt_text_pos = "eol",
           delay = 1000,
           ignore_whitespace = false,
         },
         current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
         sign_priority = 6,
         update_debounce = 100,
-        status_formatter = nil, -- Use default
-        max_file_length = 40000, -- Disable if file is longer than this (in lines)
+        status_formatter = nil,
+        max_file_length = 40000,
         preview_config = {
-          -- Options passed to nvim_open_win
           border = "single",
           style = "minimal",
           relative = "cursor",
           row = 0,
           col = 1,
-        },
-        yadm = {
-          enable = false,
         },
         on_attach = function(bufnr)
           local gs = package.loaded.gitsigns
@@ -109,6 +111,8 @@ return {
             gs.diffthis("~")
           end)
           map("n", "<leader>td", gs.toggle_deleted)
+          map("n", "<leader>gp", gs.preview_hunk)
+          map("n", "<leader>gt", gs.toggle_current_line_blame)
 
           -- Text object
           map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
@@ -116,13 +120,5 @@ return {
       })
     end,
   },
-  {
-    "lewis6991/gitsigns.nvim",
-    config = function()
-      require("gitsigns").setup()
-
-      vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
-      vim.keymap.set("n", "<leader>gt", ":Gitsigns toggle_current_line_blame<CR>", {})
-    end,
-  },
 }
+

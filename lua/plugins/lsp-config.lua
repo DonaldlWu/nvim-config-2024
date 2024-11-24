@@ -9,7 +9,10 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "tsserver" },
+        ensure_installed = {
+          "lua_ls",
+          "ts_ls",
+        },
       })
       require("lspconfig").sourcekit.setup({
         cmd = {
@@ -22,31 +25,59 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
       local lspconfig = require("lspconfig")
+
+      -- Lua
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
       })
-      lspconfig.tsserver.setup({
+
+      -- TypeScript/JavaScript
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
       })
+
+      -- HTML
       lspconfig.html.setup({
         capabilities = capabilities,
       })
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
-      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
-      vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, {})
-      vim.keymap.set("n", "[d", vim.diagnostic.goto_next, {})
-      vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, {})
 
-      -- Set up diagnostics
-      local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+      -- Global mappings
+      local opts = { noremap = true, silent = true }
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+      vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
+      vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
+      vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+
+      -- Diagnostic signs
+      local signs = {
+        Error = "",
+        Warn = "",
+        Hint = "",
+        Info = "",
+      }
+
       for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+        vim.fn.sign_define(hl, {
+          text = icon,
+          texthl = hl,
+          numhl = hl,
+        })
       end
+
+      -- 診斷顯示配置
+      vim.diagnostic.config({
+        virtual_text = true,
+        signs = true,
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
+      })
     end,
   },
 }
+
