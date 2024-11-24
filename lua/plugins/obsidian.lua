@@ -11,8 +11,8 @@ return {
       require("obsidian").setup({
         workspaces = {
           {
-            name = "ObsidianVault",
-            path = "/Users/wuderen/Documents/Obsidian Vault",
+            name = "Darren",
+            path = "/Users/wuderen/Library/Mobile Documents/iCloud~md~obsidian/Documents/Darren",
           },
           {
             name = "Notion-Export",
